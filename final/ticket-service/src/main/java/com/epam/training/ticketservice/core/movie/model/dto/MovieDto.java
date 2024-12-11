@@ -14,6 +14,6 @@ public class MovieDto {
 
     @Override
     public String toString() {
-        return movieName + " (" + movieCategory + ", " + movieLength + " minutes)";
+        return movieName + " (" + movieCategory + ", " + movieLength + " minutes)\n";
     }
 }

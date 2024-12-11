@@ -18,11 +18,17 @@ public class User {
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private Role role;
 
-    public User(String username, String password, UserType userType) {
+    public User(String username, String password, Role userType) {
         this.username = username;
         this.password = password;
-        this.userType = userType;
+        this.role = role;
+    }
+
+    public enum Role {
+
+        ADMIN,
+        USER
     }
 }

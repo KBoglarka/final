@@ -19,7 +19,7 @@ public class ScreeningDto {
 
     @Override
     public String toString() {
-        return movie.toString() + ", screened in " + room.toString() + ", at " + startTime.toString();
+        return movie.toString() + ", screened in " + room.toString() + ", at " + startTime.toString() + "\n";
     }
 
     //<A film címe> (<műfaj>, <vetítés ideje percben> minutes), screened in room <terem neve>, at <vetítés kezdetének dátuma és ideje, YYYY-MM-DD hh:mm formátumban>
