@@ -1,8 +1,13 @@
 package com.epam.training.ticketservice.core.movie.service;
 
-public interface RoomService {
+import com.epam.training.ticketservice.core.movie.model.dto.RoomDto;
 
-    void createRoom(String roomName, int rows, int columns);
-    void updateRoom(String roomName, int rows, int columns);
+import java.util.List;
+
+public interface RoomService {
+    List<RoomDto> getAllRooms();
+
+    void createRoom(RoomDto roomDto);
+    void updateRoom(RoomDto roomDto);
     void deleteRoom(String roomName);
 }
