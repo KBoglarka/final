@@ -1,10 +1,12 @@
 package com.epam.training.ticketservice.core.movie.commands;
 
 import com.epam.training.ticketservice.core.movie.model.Movie;
+import com.epam.training.ticketservice.core.movie.model.Screening;
 import com.epam.training.ticketservice.core.movie.model.dto.MovieDto;
 import com.epam.training.ticketservice.core.movie.model.dto.ScreeningDto;
 import com.epam.training.ticketservice.core.movie.repository.MovieRepository;
 import com.epam.training.ticketservice.core.movie.repository.RoomRepository;
+import com.epam.training.ticketservice.core.movie.repository.ScreeningRepository;
 import com.epam.training.ticketservice.core.movie.service.ScreeningServiceImplementation;
 import com.epam.training.ticketservice.core.user.model.User;
 import com.epam.training.ticketservice.core.user.model.UserDto;
@@ -17,6 +19,7 @@ import org.springframework.shell.standard.ShellMethodAvailability;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @ShellComponent
@@ -27,6 +30,7 @@ public class ScreeningCommands {
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
     private final UserService userService;
+    private final ScreeningRepository screeningRepository;
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create screening", value = "Usage: <movieName> <roomName> <startTime>")
@@ -38,6 +42,18 @@ public class ScreeningCommands {
         if (movie == null || room == null){
             return "A film vagy terem nem létezik";
         }
+
+        if (screeningRepository.findScreeningByRoom(room).stream().findAny().isPresent()){
+            List<Screening> sameroomscreening = screeningRepository.findScreeningByRoom(room);
+            for (Screening screening : sameroomscreening){
+                if (screening.getStartTime().isBefore(start) && screening.getStartTime().plusMinutes(screening.getMovie().getMovieLength()).isAfter(start)){
+                    return "There is an overlapping screening";
+                } else if (screening.getStartTime().isBefore(start) && screening.getStartTime().plusMinutes(screening.getMovie().getMovieLength()+10).isAfter(start)) {
+                    return "This would start in the break period after another screening in this room";
+                }
+            }
+        };
+
         ScreeningDto screening = new ScreeningDto(movie, room, start);
         screeningServiceImplementation.createScreening(screening);
         return screening.toString();
