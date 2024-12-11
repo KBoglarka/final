@@ -28,7 +28,7 @@ public class ScreeningCommands {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime start = LocalDateTime.parse(startTime, formatter);
         if (movie == null || room == null){
-            return "A film vagy vetítés nem létezik";
+            return "A film vagy terem nem létezik";
         }
         ScreeningDto screening = new ScreeningDto(movie, room, start);
         screeningServiceImplementation.createScreening(screening);
@@ -36,7 +36,17 @@ public class ScreeningCommands {
     }
 
     @ShellMethod(key = "delete screening", value = "Usage: <movieName> <roomName> <startTime>")
-    public void deleteScreening(String movieName, String roomName, LocalDateTime startTime){
+    public String deleteScreening(String movieName, String roomName, String startTime){
+        var movie = movieRepository.findByMovieName(movieName).isPresent() ? movieRepository.findByMovieName(movieName).get() : null;
+        var room = roomRepository.findByroomName(roomName).isPresent() ? roomRepository.findByroomName(roomName).get() : null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime start = LocalDateTime.parse(startTime, formatter);
+        if (movie == null || room == null){
+            return "A film vagy terem nem létezik";
+        }
+        ScreeningDto screening = new ScreeningDto(movie, room, start);
+        screeningServiceImplementation.deleteScreening(screening);
+        return "Vetítés törölve!";
     }
 
     @ShellMethod(key = "list screenings", value = "List all screenings.")

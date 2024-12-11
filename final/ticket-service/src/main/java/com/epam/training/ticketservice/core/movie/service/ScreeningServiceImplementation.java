@@ -43,7 +43,8 @@ public class ScreeningServiceImplementation implements ScreeningService{
 
     @Override
     public void deleteScreening(ScreeningDto screeningDto) {
-
+        var deletedscreening = screeningRepository.findScreeningByMovieAndRoom(screeningDto.getMovie(), screeningDto.getRoom());
+        screeningRepository.delete(deletedscreening.get());
     }
 
 
