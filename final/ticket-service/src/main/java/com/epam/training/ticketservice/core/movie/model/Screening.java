@@ -4,12 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "SCREENING")
 @NoArgsConstructor
+@Transactional
 public class Screening {
 
     @Id
@@ -29,5 +31,10 @@ public class Screening {
         this.movie = movie;
         this.room = room;
         this.startTime = startTime;
+    }
+
+    @Override
+    public String toString() {
+        return movie.toString() + ", screened in " + room.toString() + ", at " + startTime.toString();
     }
 }

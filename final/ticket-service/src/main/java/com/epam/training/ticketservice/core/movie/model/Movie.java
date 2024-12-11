@@ -19,8 +19,8 @@ public class Movie {
     private String movieCategory;
     private int movieLength;
 
-    @OneToMany(mappedBy = "movie")
-    private List<Screening> screenings;
+    /*@OneToMany(mappedBy = "movie")
+    private List<Screening> screenings;*/
 
 
     public Movie(String movieName, String movieCategory, int movieLength) {
@@ -29,5 +29,9 @@ public class Movie {
             this.movieLength = movieLength;
     }
 
+    @Override
+    public String toString() {
+        return movieName + " (" + movieCategory + ", " + movieLength + " minutes)";
+    }
 
 }

@@ -18,12 +18,17 @@ public class Room {
     private int rows;
     private int columns;
 
-    @OneToMany(mappedBy = "room")
-    private List<Screening> screenings;
+    /*@OneToMany(mappedBy = "room")
+    private List<Screening> screenings;*/
 
     public Room(String name, int rows, int columns) {
         this.roomName = name;
         this.rows = rows;
         this.columns = columns;
+    }
+
+    @Override
+    public String toString() {
+        return "Room " + roomName + " with " + (rows*columns) + " seats, " + rows + " rows and " + columns + " columns";
     }
 }
