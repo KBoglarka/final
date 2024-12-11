@@ -19,11 +19,11 @@ public class Screening {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name= "MOVIE_ID", referencedColumnName = "id")
+    /*@JoinColumn(name= "MOVIE_ID", referencedColumnName = "id")*/
     private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name= "ROOM_ID", referencedColumnName = "id")
+    /*@JoinColumn(name= "ROOM_ID", referencedColumnName = "id")*/
     private Room room;
     private LocalDateTime startTime;
 

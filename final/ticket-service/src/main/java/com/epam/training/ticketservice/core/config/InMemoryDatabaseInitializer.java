@@ -44,7 +44,7 @@ public class InMemoryDatabaseInitializer {
         roomRepository.save(a01);
 
         Screening morning = new Screening(encanto, a10, LocalDateTime.of(2024, 12, 10, 8,00));
-        Screening night = new Screening(hogfather, a01, LocalDateTime.of(2024, 12, 24, 18,00));
+        Screening night = new Screening(hmc, a01, LocalDateTime.of(2024, 12, 24, 18,00));
         screeningRepository.save(morning);
         screeningRepository.save(night);
 
