@@ -31,4 +31,9 @@ public class User {
         ADMIN,
         USER
     }
+
+    @Override
+    public String toString() {
+        return username + " " + role;
+    }
 }

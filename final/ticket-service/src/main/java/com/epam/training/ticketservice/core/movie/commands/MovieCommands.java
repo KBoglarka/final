@@ -1,21 +1,18 @@
 package com.epam.training.ticketservice.core.movie.commands;
 
-import com.epam.training.ticketservice.core.movie.model.dto.MovieDto;
-import com.epam.training.ticketservice.core.movie.repository.MovieRepository;
-import com.epam.training.ticketservice.core.movie.service.MovieService;
+import com.epam.training.ticketservice.core.movie.model.Movie;
 import com.epam.training.ticketservice.core.movie.service.MovieServiceImplementation;
 import com.epam.training.ticketservice.core.user.model.User;
 import com.epam.training.ticketservice.core.user.model.UserDto;
 import com.epam.training.ticketservice.core.user.service.UserService;
-import com.epam.training.ticketservice.core.user.service.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 
 import java.util.Optional;
+
 
 @ShellComponent
 @RequiredArgsConstructor
@@ -26,18 +23,17 @@ public class MovieCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
-    protected MovieDto createMovie(String movieName, String movieCategory, int movieLength ) {
-        MovieDto movie = new MovieDto(movieName, movieCategory, movieLength);
-        movieServiceImplementation.createMovie(movie);
+    protected Movie createMovie(String movieName, String movieCategory, int movieLength ) {
+        Movie movie = new Movie(movieName, movieCategory, movieLength);
+        movieServiceImplementation.createMovie(movieName, movieCategory, movieLength);
         return movie;
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
-    protected MovieDto updateMovie(String movieName, String movieCategory, int movieLength ) {
-        MovieDto movie = new MovieDto(movieName, movieCategory, movieLength);
-        movieServiceImplementation.updateMovie(movie);
-        return movie;
+    protected Movie updateMovie(String movieName, String movieCategory, int movieLength ) {
+        movieServiceImplementation.updateMovie(movieName, movieCategory, movieLength);
+        return new Movie(movieName, movieCategory, movieLength);
     }
 
     @ShellMethodAvailability("isAvailable")

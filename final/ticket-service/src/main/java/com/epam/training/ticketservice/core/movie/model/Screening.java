@@ -2,6 +2,7 @@ package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -19,11 +20,9 @@ public class Screening {
     private long id;
 
     @ManyToOne
-    /*@JoinColumn(name= "MOVIE_ID", referencedColumnName = "id")*/
     private Movie movie;
 
     @ManyToOne
-    /*@JoinColumn(name= "ROOM_ID", referencedColumnName = "id")*/
     private Room room;
     private LocalDateTime startTime;
 

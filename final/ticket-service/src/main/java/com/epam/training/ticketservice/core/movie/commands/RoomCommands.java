@@ -1,7 +1,6 @@
 package com.epam.training.ticketservice.core.movie.commands;
 
-import com.epam.training.ticketservice.core.movie.model.dto.MovieDto;
-import com.epam.training.ticketservice.core.movie.model.dto.RoomDto;
+import com.epam.training.ticketservice.core.movie.model.Room;
 import com.epam.training.ticketservice.core.movie.service.RoomServiceImplementation;
 import com.epam.training.ticketservice.core.user.model.User;
 import com.epam.training.ticketservice.core.user.model.UserDto;
@@ -23,18 +22,16 @@ public class RoomCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create room", value = "Usage: <roomName> <rows> <columns>")
-    protected RoomDto createRoom(String roomName, int rows, int columns){
-        RoomDto room = new RoomDto(roomName, rows, columns);
-        roomServiceImplementation.createRoom(room);
-        return room;
+    protected Room createRoom(String roomName, int rows, int columns){
+        roomServiceImplementation.createRoom(roomName, rows, columns);
+        return new Room(roomName, rows, columns);
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update room", value = "Usage: <roomName> <rows> <columns>")
-    protected RoomDto updateRoom(String roomName, int rows, int columns){
-        RoomDto room = new RoomDto(roomName, rows, columns);
-        roomServiceImplementation.updateRoom(room);
-        return room;
+    protected Room updateRoom(String roomName, int rows, int columns){
+        roomServiceImplementation.updateRoom(roomName, rows, columns);
+        return new Room(roomName, rows, columns);
     }
 
     @ShellMethodAvailability("isAvailable")

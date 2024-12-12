@@ -12,6 +12,7 @@ import com.epam.training.ticketservice.core.user.model.User;
 import com.epam.training.ticketservice.core.user.model.UserDto;
 import com.epam.training.ticketservice.core.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.service.spi.InjectService;
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -32,6 +33,7 @@ public class ScreeningCommands {
     private final UserService userService;
     private final ScreeningRepository screeningRepository;
 
+    @InjectService
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create screening", value = "Usage: <movieName> <roomName> <startTime>")
     protected String createScreening(String movieName, String roomName, String startTime){
@@ -54,9 +56,8 @@ public class ScreeningCommands {
             }
         };
 
-        ScreeningDto screening = new ScreeningDto(movie, room, start);
-        screeningServiceImplementation.createScreening(screening);
-        return screening.toString();
+        screeningServiceImplementation.createScreening(movie, room, start);
+        return new Screening(movie, room, start).toString();
     }
 
     @ShellMethodAvailability("isAvailable")
@@ -69,8 +70,7 @@ public class ScreeningCommands {
         if (movie == null || room == null){
             return "A film vagy terem nem létezik";
         }
-        ScreeningDto screening = new ScreeningDto(movie, room, start);
-        screeningServiceImplementation.deleteScreening(screening);
+        screeningServiceImplementation.deleteScreening(movie, room, start);
         return "Vetítés törölve!";
     }
 
