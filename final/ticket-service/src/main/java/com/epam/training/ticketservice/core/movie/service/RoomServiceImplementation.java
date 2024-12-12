@@ -18,35 +18,28 @@ public class RoomServiceImplementation implements RoomService {
     private final RoomRepository roomRepository;
 
     @Override
-    public List<RoomDto> getAllRooms() {
+    public List<Room> getAllRooms() {
         if(roomRepository.count() == 0) {
             return null;
         }
         return roomRepository.findAll()
                 .stream()
-                .map(this::mapEntityToDto)
                 .toList();
     }
 
     @Override
-    public void createRoom(RoomDto roomDto) {
-        Room room = new Room(
-                roomDto.getRoomName(),
-                roomDto.getRows(),
-                roomDto.getColumns()
-        );
-        roomRepository.save(room);
+    public void createRoom(String roomName, int rows, int columns) {
+        roomRepository.save(new Room(roomName, rows, columns));
     }
 
     @Override
-    public void updateRoom(RoomDto roomDto) {
-        var updatedRoom = roomRepository.findByroomName(roomDto.getRoomName());
+    public void updateRoom(String roomName, int rows, int columns) {
+        var updatedRoom = roomRepository.findByroomName(roomName);
         if (updatedRoom.isPresent()) {
-            updatedRoom.get().setRows(roomDto.getRows());
-            updatedRoom.get().setColumns(roomDto.getColumns());
-            roomRepository.save(updatedRoom.get());
+            roomRepository.save(new Room(roomName, rows, columns));
         }
     }
+
 
     @Override
     public void deleteRoom(String roomName) {
@@ -54,16 +47,4 @@ public class RoomServiceImplementation implements RoomService {
         roomRepository.delete(deletedRoom.get());
     }
 
-    private RoomDto mapEntityToDto(Room room) {
-        return RoomDto.builder()
-                .roomName(room.getRoomName())
-                .rows(room.getRows())
-                .columns(room.getColumns())
-                .build();
-    }
-
-
-    private Optional<RoomDto> mapEntityToDto(Optional<Room> room){
-        return room.map(this::mapEntityToDto);
-    }
 }
