@@ -2,9 +2,9 @@ package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -19,15 +19,12 @@ public class Movie {
     private String movieCategory;
     private int movieLength;
 
-    /*@OneToMany(mappedBy = "movie")
-    private List<Screening> screenings;*/
-
-
     public Movie(String movieName, String movieCategory, int movieLength) {
-            this.movieName = movieName;
-            this.movieCategory = movieCategory;
-            this.movieLength = movieLength;
+        this.movieName = movieName;
+        this.movieCategory = movieCategory;
+        this.movieLength = movieLength;
     }
+
 
     @Override
     public String toString() {

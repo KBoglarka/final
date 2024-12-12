@@ -3,6 +3,7 @@ package com.epam.training.ticketservice.core.movie.service;
 import com.epam.training.ticketservice.core.movie.model.Movie;
 import com.epam.training.ticketservice.core.movie.model.dto.MovieDto;
 import com.epam.training.ticketservice.core.movie.repository.MovieRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,33 +18,27 @@ public class MovieServiceImplementation implements MovieService {
 
 
     @Override
-    public List<MovieDto> getAllMovies() {
+    public List<Movie> getAllMovies() {
         if(movieRepository.count() == 0) {
             return null;
         }
         return movieRepository.findAll()
                 .stream()
-                .map(this::mapEntityToDto)
                 .toList();
     }
 
 
     @Override
-    public void createMovie(MovieDto movieDto) {
-        Movie movie = new Movie(
-                movieDto.getMovieName(),
-                movieDto.getMovieCategory(),
-                movieDto.getMovieLength()
-        );
-        movieRepository.save(movie);
+    public void createMovie(String movieName, String movieCategory, int movieLength ) {
+        movieRepository.save(new Movie(movieName, movieCategory, movieLength ));
     }
 
     @Override
-    public void updateMovie(MovieDto movieDto) {
-        var updatedMovie = movieRepository.findByMovieName(movieDto.getMovieName());
+    public void updateMovie(String movieName, String movieCategory, int movieLength) {
+        var updatedMovie = movieRepository.findByMovieName(movieName);
         if (updatedMovie.isPresent()) {
-            updatedMovie.get().setMovieCategory(movieDto.getMovieCategory());
-            updatedMovie.get().setMovieLength(movieDto.getMovieLength());
+            updatedMovie.get().setMovieCategory(movieCategory);
+            updatedMovie.get().setMovieLength(movieLength);
             movieRepository.save(updatedMovie.get());
         }
     }
@@ -52,18 +47,5 @@ public class MovieServiceImplementation implements MovieService {
     public void deleteMovie(String movieName) {
         var deletedMovie = movieRepository.findByMovieName(movieName);
         movieRepository.delete(deletedMovie.get());
-    }
-
-    private MovieDto mapEntityToDto(Movie movie) {
-        return MovieDto.builder()
-                .movieName(movie.getMovieName())
-                .movieCategory(movie.getMovieCategory())
-                .movieLength(movie.getMovieLength())
-                .build();
-    }
-
-
-    private Optional<MovieDto> mapEntityToDto(Optional<Movie> movie){
-        return movie.map(this::mapEntityToDto);
     }
 }
