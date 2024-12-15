@@ -1,7 +1,6 @@
 package com.epam.training.ticketservice.core.movie.service;
 
 import com.epam.training.ticketservice.core.movie.model.Room;
-import com.epam.training.ticketservice.core.movie.model.dto.RoomDto;
 
 import java.util.List;
 

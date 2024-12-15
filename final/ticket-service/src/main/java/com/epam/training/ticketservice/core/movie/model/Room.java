@@ -1,15 +1,12 @@
 package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "ROOM")
-@NoArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +19,10 @@ public class Room {
         this.roomName = name;
         this.rows = rows;
         this.columns = columns;
+    }
+
+    public Room(){
+
     }
 
 

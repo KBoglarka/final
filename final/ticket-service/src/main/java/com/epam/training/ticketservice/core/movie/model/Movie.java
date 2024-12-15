@@ -2,14 +2,12 @@ package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "MOVIE")
-@NoArgsConstructor
 public class Movie {
 
     @Id
@@ -23,6 +21,10 @@ public class Movie {
         this.movieName = movieName;
         this.movieCategory = movieCategory;
         this.movieLength = movieLength;
+    }
+
+    public Movie(){
+
     }
 
 

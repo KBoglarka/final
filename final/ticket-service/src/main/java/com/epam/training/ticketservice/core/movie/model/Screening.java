@@ -1,8 +1,6 @@
 package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -11,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "SCREENING")
-@NoArgsConstructor
 @Transactional
 public class Screening {
 
@@ -30,6 +27,10 @@ public class Screening {
         this.movie = movie;
         this.room = room;
         this.startTime = startTime;
+    }
+
+    public Screening() {
+
     }
 
     @Override
