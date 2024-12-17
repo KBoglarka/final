@@ -2,56 +2,70 @@ package com.epam.training.ticketservice.core.movie.service;
 
 import com.epam.training.ticketservice.core.movie.model.Movie;
 import com.epam.training.ticketservice.core.movie.repository.MovieRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+@DataJpaTest
+@ExtendWith(MockitoExtension.class)
 class MovieServiceImplementationTest {
 
     private MovieServiceImplementation movieServiceImplementation;
 
     private static final Movie ENTITY = new Movie("How To Train Your Dragon", "animation", 98);
-    private final MovieRepository movieRepository = mock(MovieRepository.class);
-    private final MovieRepository movieRepository1 = mock(MovieRepository.class);
-    private final MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
+
+    @Autowired
+    private MovieRepository movieRepository = mock(MovieRepository.class);
+    @Autowired
+    private MovieRepository movieRepository1 = mock(MovieRepository.class);
+
+    //private final MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
 
 
     @Test
     void getAllMovies() {
-        movieRepository1.save(ENTITY);
-        Movie movie1 = new Movie("How To Train Your Dragon", "animation", 98);
-        movieRepository.save(movie1);
-        List<Movie> movies = movieRepository1.findAll();
-        List<Movie> movies1 = movieRepository.findAll();
+        MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
+        underTest.createMovie("How To Train Your Dragon", "animation", 98);
+        List<Movie> actualmovies = underTest.getAllMovies();
+        List<Movie> expectedmovies = movieRepository.findAll();
+        assertEquals(expectedmovies, actualmovies);
+    }
 
-        Assertions.assertEquals(movies, movies1);
+    @Test
+    void getAllMoviesNull() {
+        MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
+        assertEquals(underTest.getAllMovies(), null);
     }
 
     @Test
     void createMovie() {
-        movieRepository1.save(ENTITY);
+        MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
         underTest.createMovie("How To Train Your Dragon", "animation", 98);
-        List<Movie> movies = movieRepository1.findAll();
-        List<Movie> movies1 = movieRepository.findAll();
-        Assertions.assertEquals(movies, movies1);
+        assertEquals(underTest.getAllMovies().size(), 1);
     }
 
     @Test
     void updateMovie() {
-        movieRepository.save(ENTITY);
+        MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
+        underTest.createMovie("How To Train Your Dragon", "animation", 98);
         underTest.updateMovie("How To Train Your Dragon", "animation", 100);
-        Movie movie1 = new Movie("How To Train Your Dragon", "animation", 100);
-        movieRepository1.save(movie1);
-        List<Movie> movies = movieRepository1.findAll();
-        List<Movie> movies1 = movieRepository.findAll();
-        Assertions.assertEquals(movies, movies1);
+        assertEquals(underTest.getAllMovies().size(), 1);
     }
 
     @Test
     void deleteMovie() {
+        MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
+        underTest.createMovie("How To Train Your Dragon", "animation", 98);
+        underTest.deleteMovie("How To Train Your Dragon");
+        assertEquals(underTest.getAllMovies(), null);
     }
 }
