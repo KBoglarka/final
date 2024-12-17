@@ -13,6 +13,7 @@ class UserTest {
 
     @Test
     void testToString() {
+        assertEquals(admin.toString(), "Signed in with privileged account admin");
     }
 
     @Test

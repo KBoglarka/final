@@ -54,6 +54,7 @@ class MovieServiceImplementationTest {
         MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
         underTest.createMovie("How To Train Your Dragon", "animation", 98);
         underTest.updateMovie("How To Train Your Dragon", "animation", 100);
+        underTest.updateMovie("How To Train Your Dragon 2", "animation", 100);
         assertEquals(underTest.getAllMovies().size(), 1);
     }
 

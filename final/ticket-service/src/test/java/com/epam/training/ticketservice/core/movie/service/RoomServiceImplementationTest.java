@@ -52,6 +52,7 @@ class RoomServiceImplementationTest {
         RoomServiceImplementation underTest = new RoomServiceImplementation(roomRepository);
         underTest.createRoom("A25", 10, 10);
         underTest.updateRoom("A25", 10, 20);
+        underTest.updateRoom("A20", 10, 20);
         Assertions.assertEquals(underTest.getAllRooms().size(), 1);
     }
 

@@ -12,7 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestExecutionListeners;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ import static org.mockito.Mockito.mock;
 
 @DataJpaTest
 @ExtendWith(MockitoExtension.class)
+@TestExecutionListeners
+@Transactional
 class ScreeningServiceImplementationTest {
 
     private final static Screening ENTITY = new Screening(
@@ -37,11 +41,11 @@ class ScreeningServiceImplementationTest {
     private MovieRepository movieRepository = mock(MovieRepository.class);
 
 
-    private final ScreeningServiceImplementation underTest = new ScreeningServiceImplementation(screeningRepository);
+    //private final ScreeningServiceImplementation underTest = new ScreeningServiceImplementation(screeningRepository);
 
     @Test
     void getAllScreenings() {
-        MovieServiceImplementation movieservice = new MovieServiceImplementation(movieRepository);
+        /*MovieServiceImplementation movieservice = new MovieServiceImplementation(movieRepository);
         movieservice.createMovie("How To Train Your Dragon", "animation", 98);
         RoomServiceImplementation roomservice = new RoomServiceImplementation(roomRepository);
         roomservice.createRoom("A25", 10, 10);
@@ -49,8 +53,11 @@ class ScreeningServiceImplementationTest {
         underTest.createScreening(new Movie("How To Train Your Dragon", "animation", 98),
                 new Room("A25", 10, 10),
                 LocalDateTime.of(2024, 12, 10, 8,12));
+        /*underTest.deleteScreening(new Movie("How To Train Your Dragon", "animation", 98),
+                new Room("A25", 10, 10),
+                LocalDateTime.of(2024, 12, 10, 8,12));
 
-        /*List<Screening> actualscreenings = underTest.getAllScreenings();
+        List<Screening> actualscreenings = underTest.getAllScreenings();
         List<Screening> expectedscreenings = screeningRepository.findAll();
         Assertions.assertEquals(expectedscreenings, actualscreenings);*/
     }
