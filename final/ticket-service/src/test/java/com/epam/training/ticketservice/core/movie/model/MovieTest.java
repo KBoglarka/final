@@ -65,6 +65,17 @@ class MovieTest {
     }
 
     @Test
+    void testNoArgsConstructor() {
+        Movie movie = new Movie();
+        String expectedName = null;
+        assertEquals(expectedName, movie.getMovieName());
+        String expectedCategory = null;
+        assertEquals(expectedCategory, movie.getMovieCategory());
+        int expectedLength = 0;
+        assertEquals(expectedLength, movie.getMovieLength());
+    }
+
+    @Test
     void testEquals() {
         assertFalse(HTTY.equals(HOGFATHER));
         assertTrue(ENCANTO.equals(ENCANTO));

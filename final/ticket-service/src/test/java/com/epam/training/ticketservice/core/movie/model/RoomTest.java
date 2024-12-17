@@ -65,6 +65,17 @@ class RoomTest {
     }
 
     @Test
+    void testNoArgsConstructor() {
+        Room room = new Room();
+        String expectedName = null;
+        int expectedRows = 0;
+        int expectedColumns = 0;
+        assertEquals(expectedName, room.getRoomName());
+        assertEquals(expectedRows, room.getRows());
+        assertEquals(expectedColumns, room.getColumns());
+    }
+
+    @Test
     void canEqual() {
         assertTrue(A10.canEqual(A10));
     }

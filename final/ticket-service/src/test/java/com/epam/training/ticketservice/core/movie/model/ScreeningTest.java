@@ -65,6 +65,17 @@ class ScreeningTest {
     }
 
     @Test
+    void testNoArgsConstructor() {
+        Screening screening = new Screening();
+        Movie movie = null;
+        Room room = null;
+        LocalDateTime time = null;
+        assertEquals(movie, screening.getMovie());
+        assertEquals(room, screening.getRoom());
+        assertEquals(time, screening.getStartTime());
+    }
+
+    @Test
     void testEquals() {
         assertNotEquals(SCREEN, SCREEN2);
         assertEquals(SCREEN, SCREEN1);
