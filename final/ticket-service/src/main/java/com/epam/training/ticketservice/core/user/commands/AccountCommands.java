@@ -14,7 +14,7 @@ public class AccountCommands {
     @ShellMethod(key = "sign in privileged", value = "Administrator sign in")
     public String logInAdmin(String username, String password) {
         return userService.login(username, password).map(userDto -> userDto + "is successfully logged in!")
-                .orElse("No such username or password!");
+                .orElse("Login failed due to incorrect credentials");
     }
 
     @ShellMethod(key = "sign out", value = "Administrator sign out")

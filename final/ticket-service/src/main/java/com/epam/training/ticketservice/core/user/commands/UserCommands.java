@@ -13,6 +13,6 @@ public class UserCommands {
 
     @ShellMethod(key = "describe account", value = "account information")
     public String describe(){
-        return userService.describe().map(Record::toString).orElse("You need to log in first!");
+        return userService.describe().map(Record::toString).orElse("You are not signed in");
     }
 }

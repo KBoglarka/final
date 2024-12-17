@@ -36,6 +36,6 @@ public class User {
 
     @Override
     public String toString() {
-        return username + " " + role;
+        return "Signed in with privileged account " + username;
     }
 }

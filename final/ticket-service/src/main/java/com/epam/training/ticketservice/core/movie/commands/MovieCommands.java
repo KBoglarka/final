@@ -31,9 +31,9 @@ public class MovieCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
-    protected Movie updateMovie(String movieName, String movieCategory, int movieLength ) {
+    protected String updateMovie(String movieName, String movieCategory, int movieLength ) {
         movieServiceImplementation.updateMovie(movieName, movieCategory, movieLength);
-        return new Movie(movieName, movieCategory, movieLength);
+        return (new Movie(movieName, movieCategory, movieLength).toString());
     }
 
     @ShellMethodAvailability("isAvailable")
@@ -47,7 +47,11 @@ public class MovieCommands {
         if (movieServiceImplementation.getAllMovies() == null) {
             return "There are no movies at the moment";
         };
-        return movieServiceImplementation.getAllMovies().toString();
+        for (Movie movie : movieServiceImplementation.getAllMovies()) {
+            System.out.println(movie.toString());
+        }
+        return null;
+        //return movieServiceImplementation.getAllMovies().toString();
 
     }
 
