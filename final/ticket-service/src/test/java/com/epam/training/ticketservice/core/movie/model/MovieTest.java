@@ -84,7 +84,8 @@ class MovieTest {
         assertFalse(ENCANTO == HTTY);
         assertFalse(HTTY.equals(null));
         assertTrue(ENCANTO != HTTY);
-        assertTrue(!HTTY.equals(ENCANTO));
+        assertTrue(!HTTY.equals(new Room()));
+
     }
 
     @Test
