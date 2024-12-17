@@ -15,6 +15,7 @@ class MovieTest {
 
     @Test
     void testToString() {
+        assertEquals("How To Train Your Dragon (animation, 98 minutes)", HTTY.toString());
     }
 
     @Test

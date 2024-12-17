@@ -19,6 +19,7 @@ class ScreeningTest {
 
     @Test
     void testToString() {
+        assertEquals("How To Train Your Dragon (animation, 98 minutes), screened in room A10, at 2024-12-10 08:15", SCREEN.toString());
     }
 
     @Test

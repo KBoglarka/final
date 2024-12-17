@@ -12,6 +12,7 @@ class RoomTest {
 
     @Test
     void testToString() {
+        assertEquals("Room A10 with 100 seats, 10 rows and 10 columns", A10.toString());
     }
 
     @Test
