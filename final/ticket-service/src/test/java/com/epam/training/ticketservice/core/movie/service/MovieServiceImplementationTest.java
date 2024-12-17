@@ -19,14 +19,10 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(MockitoExtension.class)
 class MovieServiceImplementationTest {
 
-    private MovieServiceImplementation movieServiceImplementation;
-
     private static final Movie ENTITY = new Movie("How To Train Your Dragon", "animation", 98);
 
     @Autowired
     private MovieRepository movieRepository = mock(MovieRepository.class);
-    @Autowired
-    private MovieRepository movieRepository1 = mock(MovieRepository.class);
 
     //private final MovieServiceImplementation underTest = new MovieServiceImplementation(movieRepository);
 

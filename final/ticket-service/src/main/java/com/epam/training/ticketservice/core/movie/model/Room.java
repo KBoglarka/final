@@ -2,7 +2,11 @@ package com.epam.training.ticketservice.core.movie.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
 
 @Data
 @Entity
@@ -21,13 +25,14 @@ public class Room {
         this.columns = columns;
     }
 
-    public Room(){
+    public Room() {
 
     }
 
 
     @Override
     public String toString() {
-        return "Room " + roomName + " with " + (rows*columns) + " seats, " + rows + " rows and " + columns + " columns";
+        return "Room " + roomName + " with " + (rows * columns)
+                + " seats, " + rows + " rows and " + columns + " columns";
     }
 }

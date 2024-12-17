@@ -23,7 +23,7 @@ public class MovieCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
-    protected Movie createMovie(String movieName, String movieCategory, int movieLength ) {
+    protected Movie createMovie(String movieName, String movieCategory, int movieLength) {
         Movie movie = new Movie(movieName, movieCategory, movieLength);
         movieServiceImplementation.createMovie(movieName, movieCategory, movieLength);
         //return movie;
@@ -32,7 +32,7 @@ public class MovieCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
-    protected String updateMovie(String movieName, String movieCategory, int movieLength ) {
+    protected String updateMovie(String movieName, String movieCategory, int movieLength) {
         movieServiceImplementation.updateMovie(movieName, movieCategory, movieLength);
         //return (new Movie(movieName, movieCategory, movieLength).toString());
         return null;
@@ -48,7 +48,8 @@ public class MovieCommands {
     public String listMovies() {
         if (movieServiceImplementation.getAllMovies() == null) {
             return "There are no movies at the moment";
-        };
+        }
+        ;
         for (Movie movie : movieServiceImplementation.getAllMovies()) {
             System.out.println(movie.toString());
         }
@@ -57,7 +58,7 @@ public class MovieCommands {
 
     }
 
-    private Availability isAvailable(){
+    private Availability isAvailable() {
         Optional<UserDto> user = userService.describe();
         return user.isPresent() && user.get().role() == User.Role.ADMIN
                 ? Availability.available()

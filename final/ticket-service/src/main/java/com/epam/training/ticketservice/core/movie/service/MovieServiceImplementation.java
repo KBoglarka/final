@@ -16,7 +16,7 @@ public class MovieServiceImplementation implements MovieService {
 
     @Override
     public List<Movie> getAllMovies() {
-        if(movieRepository.count() == 0) {
+        if (movieRepository.count() == 0) {
             return null;
         }
         return movieRepository.findAll()
@@ -26,8 +26,8 @@ public class MovieServiceImplementation implements MovieService {
 
 
     @Override
-    public void createMovie(String movieName, String movieCategory, int movieLength ) {
-        movieRepository.save(new Movie(movieName, movieCategory, movieLength ));
+    public void createMovie(String movieName, String movieCategory, int movieLength) {
+        movieRepository.save(new Movie(movieName, movieCategory, movieLength));
     }
 
     @Override

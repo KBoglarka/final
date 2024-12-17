@@ -1,8 +1,15 @@
 package com.epam.training.ticketservice.core.user.model;
 
 import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Column;
 
-import javax.persistence.*;
 
 @Data
 @Entity
@@ -24,7 +31,7 @@ public class User {
         this.role = role;
     }
 
-    public User(){
+    public User() {
 
     }
 

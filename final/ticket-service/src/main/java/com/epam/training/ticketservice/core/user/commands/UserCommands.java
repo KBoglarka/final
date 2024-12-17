@@ -12,7 +12,7 @@ public class UserCommands {
     private final UserService userService;
 
     @ShellMethod(key = "describe account", value = "account information")
-    public String describe(){
+    public String describe() {
 
         return userService.describe().map(Record::toString).orElse("You are not signed in");
     }

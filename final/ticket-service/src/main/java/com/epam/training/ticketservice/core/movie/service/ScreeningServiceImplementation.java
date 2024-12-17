@@ -13,14 +13,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ScreeningServiceImplementation implements ScreeningService{
+public class ScreeningServiceImplementation implements ScreeningService {
 
     private final ScreeningRepository screeningRepository;
 
 
     @Override
     public List<Screening> getAllScreenings() {
-        if(screeningRepository.count() == 0) {
+        if (screeningRepository.count() == 0) {
             return null;
         }
         return screeningRepository.findAll()

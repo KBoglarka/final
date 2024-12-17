@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImplementation implements UserService{
+public class UserServiceImplementation implements UserService {
     private final UserRepository userRepository;
     private UserDto loggedInUser = null;
 

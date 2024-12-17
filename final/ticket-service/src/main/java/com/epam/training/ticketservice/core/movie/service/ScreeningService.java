@@ -10,6 +10,8 @@ import java.util.List;
 public interface ScreeningService {
 
     List<Screening> getAllScreenings();
+
     void createScreening(Movie movie, Room room, LocalDateTime start);
+
     void deleteScreening(Movie movie, Room room, LocalDateTime start);
 }

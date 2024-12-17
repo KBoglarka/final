@@ -16,7 +16,7 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public List<Room> getAllRooms() {
-        if(roomRepository.count() == 0) {
+        if (roomRepository.count() == 0) {
             return null;
         }
         return roomRepository.findAll()

@@ -22,7 +22,7 @@ public class RoomCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create room", value = "Usage: <roomName> <rows> <columns>")
-    protected Room createRoom(String roomName, int rows, int columns){
+    protected Room createRoom(String roomName, int rows, int columns) {
         roomServiceImplementation.createRoom(roomName, rows, columns);
         //return new Room(roomName, rows, columns);
         return null;
@@ -30,7 +30,7 @@ public class RoomCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update room", value = "Usage: <roomName> <rows> <columns>")
-    protected Room updateRoom(String roomName, int rows, int columns){
+    protected Room updateRoom(String roomName, int rows, int columns) {
         roomServiceImplementation.updateRoom(roomName, rows, columns);
         //return new Room(roomName, rows, columns);
         return null;
@@ -38,22 +38,23 @@ public class RoomCommands {
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "delete room", value = "Usage: <roomName>")
-    protected void deleteRoom(String roomName){
+    protected void deleteRoom(String roomName) {
         roomServiceImplementation.deleteRoom(roomName);
     }
 
     @ShellMethod(key = "list rooms", value = "List all rooms.")
-    public String listRooms(){
+    public String listRooms() {
         if (roomServiceImplementation.getAllRooms() == null) {
             return "There are no rooms at the moment";
-        };
-        for(Room room : roomServiceImplementation.getAllRooms()){
+        }
+        ;
+        for (Room room : roomServiceImplementation.getAllRooms()) {
             System.out.println(room.toString());
         }
         return null;
     }
 
-    private Availability isAvailable(){
+    private Availability isAvailable() {
         Optional<UserDto> user = userService.describe();
         return user.isPresent() && user.get().role() == User.Role.ADMIN
                 ? Availability.available()

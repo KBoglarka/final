@@ -1,4 +1,5 @@
 package com.epam.training.ticketservice.core.movie.model.dto;
+
 import lombok.Builder;
 
 @Builder

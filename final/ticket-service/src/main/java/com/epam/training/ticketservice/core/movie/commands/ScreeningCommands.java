@@ -33,39 +33,45 @@ public class ScreeningCommands {
     @InjectService
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "create screening", value = "Usage: <movieName> <roomName> <startTime>")
-    protected String createScreening(String movieName, String roomName, String startTime){
-        var movie = movieRepository.findByMovieName(movieName).isPresent() ? movieRepository.findByMovieName(movieName).get() : null;
-        var room = roomRepository.findByroomName(roomName).isPresent() ? roomRepository.findByroomName(roomName).get() : null;
+    protected String createScreening(String movieName, String roomName, String startTime) {
+        var movie = movieRepository.findByMovieName(movieName).isPresent()
+                ? movieRepository.findByMovieName(movieName).get() : null;
+        var room = roomRepository.findByroomName(roomName).isPresent()
+                ? roomRepository.findByroomName(roomName).get() : null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime start = LocalDateTime.parse(startTime, formatter);
-        if (movie == null || room == null){
+        if (movie == null || room == null) {
             return "A film vagy terem nem létezik";
         }
 
-        if (screeningRepository.findScreeningByRoom(room).stream().findAny().isPresent()){
+        if (screeningRepository.findScreeningByRoom(room).stream().findAny().isPresent()) {
             List<Screening> sameroomscreening = screeningRepository.findScreeningByRoom(room);
-            for (Screening screening : sameroomscreening){
-                if (screening.getStartTime().isBefore(start) && screening.getStartTime().plusMinutes(screening.getMovie().getMovieLength()).isAfter(start)){
+            for (Screening screening : sameroomscreening) {
+                if (screening.getStartTime().isBefore(start) && screening.getStartTime()
+                        .plusMinutes(screening.getMovie().getMovieLength()).isAfter(start)) {
                     return "There is an overlapping screening";
-                } else if (screening.getStartTime().isBefore(start) && screening.getStartTime().plusMinutes(screening.getMovie().getMovieLength()+10).isAfter(start)) {
+                } else if (screening.getStartTime().isBefore(start) && screening.getStartTime()
+                        .plusMinutes(screening.getMovie().getMovieLength() + 10).isAfter(start)) {
                     return "This would start in the break period after another screening in this room";
                 }
             }
-        };
+        }
+        ;
 
         screeningServiceImplementation.createScreening(movie, room, start);
-        //return new Screening(movie, room, start).toString();
         return null;
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "delete screening", value = "Usage: <movieName> <roomName> <startTime>")
-    protected String deleteScreening(String movieName, String roomName, String startTime){
-        var movie = movieRepository.findByMovieName(movieName).isPresent() ? movieRepository.findByMovieName(movieName).get() : null;
-        var room = roomRepository.findByroomName(roomName).isPresent() ? roomRepository.findByroomName(roomName).get() : null;
+    protected String deleteScreening(String movieName, String roomName, String startTime) {
+        var movie = movieRepository.findByMovieName(movieName).isPresent()
+                ? movieRepository.findByMovieName(movieName).get() : null;
+        var room = roomRepository.findByroomName(roomName).isPresent()
+                ? roomRepository.findByroomName(roomName).get() : null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime start = LocalDateTime.parse(startTime, formatter);
-        if (movie == null || room == null){
+        if (movie == null || room == null) {
             return "A film vagy terem nem létezik";
         }
         screeningServiceImplementation.deleteScreening(movie, room, start);
@@ -73,17 +79,18 @@ public class ScreeningCommands {
     }
 
     @ShellMethod(key = "list screenings", value = "List all screenings.")
-    public String listScreenings(){
+    public String listScreenings() {
         if (screeningServiceImplementation.getAllScreenings() == null) {
             return "There are no screenings at the moment";
-        };
-        for (Screening screening : screeningServiceImplementation.getAllScreenings()){
+        }
+        ;
+        for (Screening screening : screeningServiceImplementation.getAllScreenings()) {
             System.out.println(screening.toString());
         }
         return null;
     }
 
-    private Availability isAvailable(){
+    private Availability isAvailable() {
         Optional<UserDto> user = userService.describe();
         return user.isPresent() && user.get().role() == User.Role.ADMIN
                 ? Availability.available()
