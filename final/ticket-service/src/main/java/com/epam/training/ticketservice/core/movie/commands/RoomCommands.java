@@ -24,14 +24,16 @@ public class RoomCommands {
     @ShellMethod(key = "create room", value = "Usage: <roomName> <rows> <columns>")
     protected Room createRoom(String roomName, int rows, int columns){
         roomServiceImplementation.createRoom(roomName, rows, columns);
-        return new Room(roomName, rows, columns);
+        //return new Room(roomName, rows, columns);
+        return null;
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update room", value = "Usage: <roomName> <rows> <columns>")
     protected Room updateRoom(String roomName, int rows, int columns){
         roomServiceImplementation.updateRoom(roomName, rows, columns);
-        return new Room(roomName, rows, columns);
+        //return new Room(roomName, rows, columns);
+        return null;
     }
 
     @ShellMethodAvailability("isAvailable")
@@ -45,7 +47,10 @@ public class RoomCommands {
         if (roomServiceImplementation.getAllRooms() == null) {
             return "There are no rooms at the moment";
         };
-        return roomServiceImplementation.getAllRooms().toString();
+        for(Room room : roomServiceImplementation.getAllRooms()){
+            System.out.println(room.toString());
+        }
+        return null;
     }
 
     private Availability isAvailable(){

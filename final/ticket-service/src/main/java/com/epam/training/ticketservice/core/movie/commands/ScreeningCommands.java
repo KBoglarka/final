@@ -54,7 +54,8 @@ public class ScreeningCommands {
         };
 
         screeningServiceImplementation.createScreening(movie, room, start);
-        return new Screening(movie, room, start).toString();
+        //return new Screening(movie, room, start).toString();
+        return null;
     }
 
     @ShellMethodAvailability("isAvailable")
@@ -68,7 +69,7 @@ public class ScreeningCommands {
             return "A film vagy terem nem létezik";
         }
         screeningServiceImplementation.deleteScreening(movie, room, start);
-        return "Vetítés törölve!";
+        return null;
     }
 
     @ShellMethod(key = "list screenings", value = "List all screenings.")
@@ -76,7 +77,10 @@ public class ScreeningCommands {
         if (screeningServiceImplementation.getAllScreenings() == null) {
             return "There are no screenings at the moment";
         };
-        return screeningServiceImplementation.getAllScreenings().toString();
+        for (Screening screening : screeningServiceImplementation.getAllScreenings()){
+            System.out.println(screening.toString());
+        }
+        return null;
     }
 
     private Availability isAvailable(){

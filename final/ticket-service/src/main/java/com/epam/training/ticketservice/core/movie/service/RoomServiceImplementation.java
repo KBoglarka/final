@@ -33,7 +33,9 @@ public class RoomServiceImplementation implements RoomService {
     public void updateRoom(String roomName, int rows, int columns) {
         var updatedRoom = roomRepository.findByroomName(roomName);
         if (updatedRoom.isPresent()) {
-            roomRepository.save(new Room(roomName, rows, columns));
+            updatedRoom.get().setRows(rows);
+            updatedRoom.get().setColumns(columns);
+            roomRepository.save(updatedRoom.get());
         }
     }
 

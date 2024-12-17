@@ -35,6 +35,6 @@ public class Screening {
 
     @Override
     public String toString() {
-        return movie.toString() + ", screened in " + room.toString() + ", at " + startTime.toString();
+        return movie.toString() + ", screened in room " + room.getRoomName() + ", at " + startTime.toString().replace('T', ' ');
     }
 }

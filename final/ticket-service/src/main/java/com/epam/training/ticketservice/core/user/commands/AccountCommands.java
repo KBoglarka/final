@@ -13,13 +13,20 @@ public class AccountCommands {
 
     @ShellMethod(key = "sign in privileged", value = "Administrator sign in")
     public String logInAdmin(String username, String password) {
-        return userService.login(username, password).map(userDto -> userDto + "is successfully logged in!")
-                .orElse("Login failed due to incorrect credentials");
+        if (userService.login(username, password).isPresent()) {
+            return null;
+        }
+        return "Login failed due to incorrect credentials";
+        /*return userService.login(username, password).map(userDto -> "")
+                .orElse("Login failed due to incorrect credentials");*/
     }
 
     @ShellMethod(key = "sign out", value = "Administrator sign out")
     public String signOut(){
-        return userService.logout().map(userDto -> userDto + "is logged out")
-                .orElse("You need to log in first!");
+        userService.logout();
+        /*return userService.logout().map(userDto -> userDto + "is logged out")
+                .orElse("You need to log in first!");*/
+
+        return null;
     }
 }

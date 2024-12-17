@@ -26,14 +26,16 @@ public class MovieCommands {
     protected Movie createMovie(String movieName, String movieCategory, int movieLength ) {
         Movie movie = new Movie(movieName, movieCategory, movieLength);
         movieServiceImplementation.createMovie(movieName, movieCategory, movieLength);
-        return movie;
+        //return movie;
+        return null;
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(key = "update movie", value = "Usage: <movieName> <movieCategory> <movieLength>")
     protected String updateMovie(String movieName, String movieCategory, int movieLength ) {
         movieServiceImplementation.updateMovie(movieName, movieCategory, movieLength);
-        return (new Movie(movieName, movieCategory, movieLength).toString());
+        //return (new Movie(movieName, movieCategory, movieLength).toString());
+        return null;
     }
 
     @ShellMethodAvailability("isAvailable")
